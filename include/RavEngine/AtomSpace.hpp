@@ -1,5 +1,4 @@
 #pragma once
-#include "Types.hpp"
 #include "Map.hpp"
 #include "Vector.hpp"
 #include "SpinLock.hpp"
@@ -8,6 +7,7 @@
 #include <string>
 #include <variant>
 #include <functional>
+#include <cstdint>
 
 namespace RavEngine {
 

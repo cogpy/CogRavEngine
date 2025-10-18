@@ -802,10 +802,14 @@ if (RAVENGINE_BUILD_TESTS)
 		add_executable("${PROJECT_NAME}_DSPerf" EXCLUDE_FROM_ALL "test/dsperf.cpp")
 		target_link_libraries("${PROJECT_NAME}_DSPerf" PUBLIC "RavEngine")
 
+		add_executable("${PROJECT_NAME}_TestCogAgent" EXCLUDE_FROM_ALL "test/cogagent.cpp")
+		target_link_libraries("${PROJECT_NAME}_TestCogAgent" PUBLIC "RavEngine")
+
 		target_compile_features("${PROJECT_NAME}_TestBasics" PRIVATE cxx_std_23)
 		target_compile_features("${PROJECT_NAME}_DSPerf" PRIVATE cxx_std_23)
+		target_compile_features("${PROJECT_NAME}_TestCogAgent" PRIVATE cxx_std_23)
 
-		set_target_properties("${PROJECT_NAME}_TestBasics" "${PROJECT_NAME}_DSPerf" PROPERTIES 
+		set_target_properties("${PROJECT_NAME}_TestBasics" "${PROJECT_NAME}_DSPerf" "${PROJECT_NAME}_TestCogAgent" PROPERTIES 
 			VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>"
 			XCODE_GENERATE_SCHEME ON	# create a scheme in Xcode
 		)
@@ -824,6 +828,7 @@ if (RAVENGINE_BUILD_TESTS)
 		test("Test_SpawnDestroy" "${PROJECT_NAME}_TestBasics")
 		test("Test_CheckGraph" "${PROJECT_NAME}_TestBasics")
 		test("Test_DataProviders" "${PROJECT_NAME}_TestBasics")
+		test("Test_CognitiveAgent" "${PROJECT_NAME}_TestCogAgent")
 	endif()
 
 	# dummy app

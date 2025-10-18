@@ -18,6 +18,7 @@ A C++23 cross-platform game framework, with emphasis on addressing pain points i
 16. CI/CD-friendly build process powered by CMake
 17. Quality-of-life features like automatic incremental shader compilation
 18. Integrates with GPU debugging tools (Xcode Metal Debugger, RenderDoc, PIX, NSight)
+19. **OpenCog-inspired cognitive agent system for autonomous, self-aware game AI** (see [Cognitive Agents Documentation](docs/CognitiveAgents.md))
 
 A complete list of third party technologies can be found in the [`deps`](https://github.com/RavEngine/RavEngine/tree/master/deps) folder.
 

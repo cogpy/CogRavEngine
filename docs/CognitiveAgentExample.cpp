@@ -11,6 +11,8 @@
 #include <RavEngine/CognitiveAgent.hpp>
 #include <RavEngine/AgentOrchestrator.hpp>
 #include <RavEngine/Transform.hpp>
+#include <RavEngine/Debug.hpp>
+#include <ctime>
 
 using namespace RavEngine;
 
@@ -64,6 +66,7 @@ private:
             return false;
         }
         
+        // GetTransform() is guaranteed to return valid reference by RavEngine
         auto& transform = GetTransform();
         auto currentPos = transform.GetWorldPosition();
         auto targetPos = waypoints[currentWaypoint];
@@ -154,7 +157,13 @@ private:
     int enemiesDefeated = 0;
     
     bool PerformAttack() {
-        // Attack logic
+        // Attack logic - using simple random for example purposes
+        // In production, use std::mt19937 or game-specific RNG
+        static bool seeded = false;
+        if (!seeded) {
+            srand(static_cast<unsigned>(time(nullptr)));
+            seeded = true;
+        }
         bool success = (rand() % 100) < 70;  // 70% success rate
         
         if (success) {
@@ -206,7 +215,8 @@ struct CognitiveWorld : public World {
             orchestrator->RegisterAgent(&agent);
         }
         
-        Debug::Log("Cognitive World initialized with %zu agents", 
+        // Note: %zu works with Debug::Log which uses fmt library internally
+        Debug::Log("Cognitive World initialized with {} agents", 
                    orchestrator->GetAgentCount());
     }
     
@@ -219,7 +229,7 @@ struct CognitiveWorld : public World {
         // Log statistics periodically
         static int tickCount = 0;
         if (++tickCount % 1000 == 0) {
-            Debug::Log("Agent Stats: Avg Awareness=%.2f, Avg Load=%.2f",
+            Debug::Log("Agent Stats: Avg Awareness={:.2f}, Avg Load={:.2f}",
                       orchestrator->GetAverageAwareness(),
                       orchestrator->GetAverageCognitiveLoad());
         }

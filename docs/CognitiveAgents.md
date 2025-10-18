@@ -151,8 +151,9 @@ The orchestrator enables agents to share knowledge:
 // Agent 1 learns something
 agent1.FormBeliefAbout("resource_location", TruthValue(0.95f, 0.95f));
 
-// Orchestrator periodically shares high-confidence knowledge
-orchestrator.CoordinateAgents();  // Call every 100 ticks
+// Orchestrator should be called every tick to coordinate agents
+// (Knowledge sharing internally happens every 100 ticks automatically)
+orchestrator.CoordinateAgents();
 
 // Agent 2 now has access to shared knowledge
 auto sharedSpace = orchestrator.GetSharedKnowledge();
